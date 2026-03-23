@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Mashup — Unidad 3</title>
+  <link rel="stylesheet" href="styles/style2.css" />
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <div class="topbar">
+    <div class="logo">API<span>.</span>MASHUP</div>
+    <div class="topbar-center" id="dots"></div>
+    <div class="topbar-right">UNIDAD &nbsp;<span>3</span></div>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="shop-wrap">
+
+    <!-- Flecha izquierda -->
+    <div class="arrow-side disabled" id="arr-l">
+      <div class="arrow-btn" role="button" tabindex="0" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Área central -->
+    <div class="carousel-area">
+
+      <div class="api-meta">
+        <div class="api-num" id="api-num">API · 01 · 06</div>
+        <div class="api-title" id="api-title">Geolocalización</div>
+        <div class="api-sub" id="api-sub">navigator.geolocation + Google Maps Embed</div>
+      </div>
+
+      <div class="track-outer" id="track-outer">
+        <div class="track" id="track">
+
+          <!-- Slide 1 -->
+          <div class="slide">
+            <div class="card">
+              <div class="map-box">
+                <iframe
+                  id="geo-map"
+                  src="https://maps.google.com/maps?q=25.4290,-100.9966&z=14&output=embed"
+                  width="100%"
+                  height="100%"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allowfullscreen
+                  title="Mapa de geolocalización">
+                </iframe>
+              </div>
+
+              <div class="coord-row">
+                <div class="coord-box">
+                  <div class="coord-lbl">LATITUD</div>
+                  <div class="coord-val" id="lat-v">---</div>
+                </div>
+                <div class="coord-box">
+                  <div class="coord-lbl">LONGITUD</div>
+                  <div class="coord-val" id="lng-v">---</div>
+                </div>
+                <div class="coord-box">
+                  <div class="coord-lbl">PRECISIÓN</div>
+                  <div class="coord-val" id="acc-v">---</div>
+                </div>
+              </div>
+
+              <button class="btn" id="btn-geo" type="button">[ PERMITIR UBICACIÓN Y VER EN MAPS ]</button>
+              <div class="output" id="geo-out">
+                Presiona el botón para solicitar autorización de ubicación y mostrar tu posición en Google Maps.
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="slide">
+            <div class="card">
+              <label for="social-q">BUSCAR PERFIL DE PAÍS</label>
+              <div class="search-row">
+                <input id="social-q" placeholder="Mexico, France, Japan..." value="Mexico" />
+                <button class="btn" id="btn-social" type="button">BUSCAR</button>
+              </div>
+              <div id="social-out" class="posts">
+                <div class="loading">Escribe un país y presiona BUSCAR</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="slide">
+            <div class="card">
+              <label for="eco-cat">CATEGORÍA DE PRODUCTOS</label>
+              <div class="search-row">
+                <select id="eco-cat">
+                  <option value="">Todas las categorías</option>
+                  <option value="electronics">Electrónica</option>
+                  <option value="jewelery">Joyería</option>
+                  <option value="men's clothing">Ropa hombre</option>
+                  <option value="women's clothing">Ropa mujer</option>
+                </select>
+                <button class="btn" id="btn-eco" type="button">BUSCAR</button>
+              </div>
+              <div id="eco-out" class="products">
+                <div class="loading">Selecciona categoría y presiona BUSCAR</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="slide">
+            <div class="card">
+              <div class="db-chips">
+                <div class="db-chip">Endpoint<strong>POST /users</strong></div>
+                <div class="db-chip">Host<strong>jsonplaceholder</strong></div>
+                <div class="db-chip">Registros<strong id="reg-cnt">0</strong></div>
+              </div>
+
+              <label for="db-name">NOMBRE DE USUARIO</label>
+              <input id="db-name" placeholder="ej: juan_perez" />
+
+              <label for="db-email">CORREO ELECTRÓNICO</label>
+              <input id="db-email" type="email" placeholder="ej: juan@email.com" />
+
+              <label for="db-city">CIUDAD</label>
+              <input id="db-city" placeholder="ej: Saltillo" />
+
+              <div class="btn-row">
+                <button class="btn" id="btn-db" type="button">[ REGISTRAR ]</button>
+                <button class="btn-sec" id="btn-clear-log" type="button">LIMPIAR</button>
+              </div>
+
+              <div class="terminal" id="db-term">
+                <span class="t-ok">&gt; Sistema listo...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="slide">
+            <div class="card">
+              <div class="sms-chips">
+                <div class="sms-chip">Enviados<strong id="cnt-tot">0</strong></div>
+                <div class="sms-chip">SMS<strong id="cnt-sms">0</strong></div>
+                <div class="sms-chip">Push<strong id="cnt-psh">0</strong></div>
+                <div class="sms-chip">Otros<strong id="cnt-oth">0</strong></div>
+              </div>
+
+              <label for="sms-to">NÚMERO DESTINO</label>
+              <input id="sms-to" type="tel" placeholder="+52 844 000 0000" />
+
+              <label for="sms-type">TIPO DE NOTIFICACIÓN</label>
+              <select id="sms-type">
+                <option value="SMS">📱 SMS</option>
+                <option value="Push">🔔 Push notification</option>
+                <option value="WhatsApp">💬 WhatsApp</option>
+                <option value="Email">📧 Email</option>
+              </select>
+
+              <label for="sms-msg">MENSAJE</label>
+              <textarea id="sms-msg" placeholder="Escribe tu mensaje...">Hola! Mensaje de prueba desde el Dashboard.</textarea>
+
+              <button class="btn" id="btn-sms" type="button">[ ENVIAR NOTIFICACIÓN ]</button>
+              <div id="sms-list" class="sms-list"></div>
+            </div>
+          </div>
+
+          <!-- Slide 6 -->
+          <div class="slide">
+            <div class="card">
+              <label for="yt-sel">SELECCIONA ROCK</label>
+              <select id="yt-sel">
+                <option value="fJ9rUzIMcZQ">Queen — Bohemian Rhapsody</option>
+                <option value="eVTXPUF4Oz4">Linkin Park — Numb</option>
+                <option value="YlUKcNNmywk">Red Hot Chili Peppers — Californication</option>
+                <option value="hTWKbfoikeg">Nirvana — Smells Like Teen Spirit</option>
+                <option value="ktvTqknDobU">Imagine Dragons — Radioactive</option>
+              </select>
+
+              <div class="vid-wrap">
+                <iframe
+                  id="yt-frame"
+                  src="https://www.youtube.com/embed/fJ9rUzIMcZQ?rel=0&modestbranding=1"
+                  title="Reproductor de música rock"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <div class="vctrls">
+                <button class="vctr" type="button" data-action="play">▶ PLAY</button>
+                <button class="vctr" type="button" data-action="pause">⏸ PAUSA</button>
+                <button class="vctr" type="button" data-action="reload">⏹ RECARGAR</button>
+                <button class="vctr" type="button" data-action="mute">🔇 MUTE</button>
+                <button class="vctr" type="button" data-action="unmute">🔊 VOL</button>
+              </div>
+
+              <div class="pl-list" id="pl-list"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="counter" id="counter">01 &nbsp;/&nbsp; <span>06</span></div>
+    </div>
+
+    <!-- Flecha derecha -->
+    <div class="arrow-side" id="arr-r">
+      <div class="arrow-btn" role="button" tabindex="0" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const $ = (id) => document.getElementById(id);
+
+      const elements = {
+        track: $('track'),
+        trackOuter: $('track-outer'),
+        dots: $('dots'),
+        apiNum: $('api-num'),
+        apiTitle: $('api-title'),
+        apiSub: $('api-sub'),
+        counter: $('counter'),
+        arrL: $('arr-l'),
+        arrR: $('arr-r'),
+
+        lat: $('lat-v'),
+        lng: $('lng-v'),
+        acc: $('acc-v'),
+        geoOut: $('geo-out'),
+        btnGeo: $('btn-geo'),
+        geoMap: $('geo-map'),
+
+        socialQ: $('social-q'),
+        socialOut: $('social-out'),
+        btnSocial: $('btn-social'),
+
+        ecoCat: $('eco-cat'),
+        ecoOut: $('eco-out'),
+        btnEco: $('btn-eco'),
+
+        dbName: $('db-name'),
+        dbEmail: $('db-email'),
+        dbCity: $('db-city'),
+        dbTerm: $('db-term'),
+        regCnt: $('reg-cnt'),
+        btnDb: $('btn-db'),
+        btnClearLog: $('btn-clear-log'),
+
+        smsTo: $('sms-to'),
+        smsType: $('sms-type'),
+        smsMsg: $('sms-msg'),
+        smsList: $('sms-list'),
+        cntTot: $('cnt-tot'),
+        cntSms: $('cnt-sms'),
+        cntPsh: $('cnt-psh'),
+        cntOth: $('cnt-oth'),
+        btnSms: $('btn-sms'),
+
+        ytSel: $('yt-sel'),
+        ytFrame: $('yt-frame'),
+        plList: $('pl-list')
+      };
+
+      const carouselData = [
+        ['API · 01 · 06', 'Geolocalización', 'navigator.geolocation + Google Maps Embed'],
+        ['API · 02 · 06', 'Redes Sociales', 'REST Countries API — Perfiles de países'],
+        ['API · 03 · 06', 'E-Commerce', 'FakeStore API — Catálogo de productos'],
+        ['API · 04 · 06', 'Base de Datos', 'JSONPlaceholder — POST /users en la nube'],
+        ['API · 05 · 06', 'Comunicación SMS', 'Simulación Twilio — SMS / Push / WhatsApp'],
+        ['API · 06 · 06', 'Streaming', 'YouTube Embed — Rock']
+      ];
+
+      const playlist = [
+        { id: 'fJ9rUzIMcZQ', title: 'Queen — Bohemian Rhapsody' },
+        { id: 'eVTXPUF4Oz4', title: 'Linkin Park — Numb' },
+        { id: 'YlUKcNNmywk', title: 'Red Hot Chili Peppers — Californication' },
+        { id: 'hTWKbfoikeg', title: 'Nirvana — Smells Like Teen Spirit' },
+        { id: 'ktvTqknDobU', title: 'Imagine Dragons — Radioactive' }
+      ];
+
+      const state = {
+        currentSlide: 0,
+        totalSlides: carouselData.length,
+        currentVideo: 0,
+        currentMute: false,
+        dbLogs: [],
+        dbCount: 0,
+        smsMessages: [],
+        smsCounters: {
+          total: 0,
+          sms: 0,
+          push: 0,
+          other: 0
+        }
+      };
+
+      function escapeHtml(text = '') {
+        return String(text)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+
+      function getTime() {
+        const now = new Date();
+        return [
+          now.getHours().toString().padStart(2, '0'),
+          now.getMinutes().toString().padStart(2, '0'),
+          now.getSeconds().toString().padStart(2, '0')
+        ].join(':');
+      }
+
+      function goToSlide(index) {
+        if (index < 0 || index >= state.totalSlides) return;
+
+        state.currentSlide = index;
+        const [num, title, sub] = carouselData[index];
+
+        elements.track.style.transform = `translateX(-${index * 100}%)`;
+        elements.apiNum.textContent = num;
+        elements.apiTitle.textContent = title;
+        elements.apiSub.textContent = sub;
+        elements.counter.innerHTML = `${String(index + 1).padStart(2, '0')} &nbsp;/&nbsp; <span>${String(state.totalSlides).padStart(2, '0')}</span>`;
+
+        elements.arrL.classList.toggle('disabled', index === 0);
+        elements.arrR.classList.toggle('disabled', index === state.totalSlides - 1);
+
+        document.querySelectorAll('.dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      }
+
+      function moveSlide(step) {
+        goToSlide(state.currentSlide + step);
+      }
+
+      function buildDots() {
+        elements.dots.innerHTML = '';
+
+        carouselData.forEach((_, index) => {
+          const dot = document.createElement('div');
+          dot.className = index === 0 ? 'dot active' : 'dot';
+          dot.addEventListener('click', () => goToSlide(index));
+          elements.dots.appendChild(dot);
+        });
+      }
+
+      function updateMap(lat, lng) {
+        elements.geoMap.src = `https://maps.google.com/maps?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}&z=16&output=embed`;
+      }
+
+      async function checkGeoPermission() {
+        if (!('permissions' in navigator) || !navigator.permissions.query) return;
+
+        try {
+          const result = await navigator.permissions.query({ name: 'geolocation' });
+
+          if (result.state === 'granted') {
+            elements.geoOut.innerHTML = '<span class="ok">✓ Permiso de ubicación ya concedido.</span>';
+          } else if (result.state === 'denied') {
+            elements.geoOut.innerHTML = '<span class="warn">⚠ El permiso de ubicación está bloqueado en el navegador.</span>';
+          }
+        } catch {
+          // silencioso a propósito
+        }
+      }
+
+      function getGeo() {
+        if (!window.isSecureContext) {
+          elements.geoOut.innerHTML = '<span class="err">✗ La geolocalización real requiere HTTPS o localhost.</span>';
+          return;
+        }
+
+        if (!navigator.geolocation) {
+          elements.geoOut.innerHTML = '<span class="err">✗ Este navegador no soporta geolocalización.</span>';
+          return;
+        }
+
+        elements.geoOut.innerHTML = '<span class="warn">⟳ Solicitando autorización de ubicación...</span>';
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude.toFixed(6);
+            const lng = position.coords.longitude.toFixed(6);
+            const acc = `${Math.round(position.coords.accuracy)} m`;
+
+            elements.lat.textContent = lat;
+            elements.lng.textContent = lng;
+            elements.acc.textContent = acc;
+
+            updateMap(lat, lng);
+
+            elements.geoOut.innerHTML = `
+              <span class="ok">✓ Permiso concedido.</span>
+              Ubicación detectada correctamente.<br>
+              Latitud: <b>${lat}</b> | Longitud: <b>${lng}</b> | Precisión: <b>${acc}</b>
+            `;
+          },
+          (error) => {
+            const errors = {
+              1: 'Permiso denegado por el usuario.',
+              2: 'La ubicación no está disponible.',
+              3: 'Se agotó el tiempo de espera.'
+            };
+
+            const demoLat = '25.4290';
+            const demoLng = '-100.9966';
+
+            elements.lat.textContent = demoLat;
+            elements.lng.textContent = demoLng;
+            elements.acc.textContent = '~50 m';
+            updateMap(demoLat, demoLng);
+
+            elements.geoOut.innerHTML = `
+              <span class="warn">⚠ ${errors[error.code] || 'Error desconocido.'}</span><br>
+              Se mostró una ubicación de ejemplo: <b>Saltillo, Coahuila</b>.
+            `;
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+          }
+        );
+      }
+
+      async function fetchSocial() {
+        const query = elements.socialQ.value.trim() || 'Mexico';
+        elements.socialOut.innerHTML = '<div class="loading">⟳ Conectando...</div>';
+
+        try {
+          const response = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(query)}`);
+          const data = await response.json();
+
+          if (!response.ok || !Array.isArray(data) || data.length === 0 || data.status === 404) {
+            elements.socialOut.innerHTML = '<div class="loading"><span class="err">✗ País no encontrado.</span></div>';
+            return;
+          }
+
+          elements.socialOut.innerHTML = data.slice(0, 3).map((country) => {
+            const capital = country.capital?.[0] || 'N/A';
+            const currency = country.currencies ? Object.values(country.currencies)[0]?.name || 'N/A' : 'N/A';
+            const language = country.languages ? Object.values(country.languages)[0] || 'N/A' : 'N/A';
+            const name = country.name?.common || 'Desconocido';
+            const region = country.region || 'N/A';
+            const population = (country.population || 0).toLocaleString();
+            const area = (country.area || 0).toLocaleString();
+
+            return `
+              <div class="post">
+                <div class="post-user">${escapeHtml(country.flag || '🌍')} ${escapeHtml(name)}</div>
+                <div class="post-handle">@${escapeHtml(name.toLowerCase().replace(/\s+/g, '_'))} · ${escapeHtml(region)}</div>
+                <div class="post-text">Capital: <b>${escapeHtml(capital)}</b> · Idioma: <b>${escapeHtml(language)}</b> · Moneda: <b>${escapeHtml(currency)}</b></div>
+                <div class="post-meta">
+                  <span>Pob. <span class="mv">${population}</span></span>
+                  <span>Área <span class="mv">${area} km²</span></span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } catch {
+          elements.socialOut.innerHTML = '<div class="loading"><span class="err">✗ Error de red.</span></div>';
+        }
+      }
+
+      async function fetchEco() {
+        const category = elements.ecoCat.value;
+        elements.ecoOut.innerHTML = '<div class="loading">⟳ Consultando FakeStore API...</div>';
+
+        const url = category
+          ? `https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`
+          : 'https://fakestoreapi.com/products';
+
+        try {
+          const response = await fetch(url);
+          const products = await response.json();
+
+          if (!response.ok || !Array.isArray(products) || products.length === 0) {
+            elements.ecoOut.innerHTML = '<div class="loading">Sin resultados.</div>';
+            return;
+          }
+
+          elements.ecoOut.innerHTML = products.slice(0, 3).map((product) => {
+            const title = product.title?.length > 58
+              ? `${product.title.slice(0, 58)}...`
+              : (product.title || 'Producto');
+
+            const rating = Math.round(product.rating?.rate || 0);
+            const stars = Array.from({ length: 5 }, (_, i) => i < rating ? '★' : '☆').join('');
+
+            return `
+              <div class="product">
+                <div class="img-wrap">
+                  <img src="${escapeHtml(product.image || '')}" alt="${escapeHtml(title)}" onerror="this.style.display='none'" />
+                </div>
+                <div>
+                  <div class="prod-name">${escapeHtml(title)}</div>
+                  <div class="prod-cat">${escapeHtml((product.category || 'N/A').toUpperCase())}</div>
+                  <div class="prod-price">$${Number(product.price || 0).toFixed(2)} <span class="prod-cur">USD</span></div>
+                  <div class="prod-rat">
+                    <span class="stars">${stars}</span>
+                    ${escapeHtml(String(product.rating?.rate ?? 0))} (${escapeHtml(String(product.rating?.count ?? 0))})
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } catch {
+          elements.ecoOut.innerHTML = '<div class="loading"><span class="err">✗ Error al conectar.</span></div>';
+        }
+      }
+
+      function renderDbLog() {
+        elements.dbTerm.innerHTML = state.dbLogs.join('<br>');
+        elements.dbTerm.scrollTop = elements.dbTerm.scrollHeight;
+      }
+
+      function addDbLog(message, className) {
+        state.dbLogs.push(`<span class="t-ts">[${getTime()}]</span> <span class="${className}">${escapeHtml(message)}</span>`);
+
+        if (state.dbLogs.length > 15) {
+          state.dbLogs.shift();
+        }
+
+        renderDbLog();
+      }
+
+      async function sendDb() {
+        const name = elements.dbName.value.trim();
+        const email = elements.dbEmail.value.trim();
+        const city = elements.dbCity.value.trim();
+
+        if (!name || !email) {
+          addDbLog('ERROR: nombre y email requeridos.', 't-err');
+          return;
+        }
+
+        addDbLog(`POST /users → ${name} <${email}>`, 't-send');
+
+        try {
+          const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              username: name.replace(/\s+/g, '_').toLowerCase(),
+              email,
+              address: { city: city || 'N/A' }
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error('Error al registrar');
+          }
+
+          state.dbCount += 1;
+          elements.regCnt.textContent = state.dbCount;
+
+          addDbLog(`HTTP 201 Created ✓ — ID: #${data.id}`, 't-ok');
+          addDbLog(`Ciudad: ${city || 'no especificada'}`, 't-ok');
+        } catch {
+          addDbLog('ERROR: fallo de conexión.', 't-err');
+        }
+      }
+
+      function clearLog() {
+        state.dbLogs = ['<span class="t-ok">&gt; Log limpiado.</span>'];
+        renderDbLog();
+      }
+
+      function renderSmsList() {
+        const icons = {
+          SMS: '📱',
+          Push: '🔔',
+          WhatsApp: '💬',
+          Email: '📧'
+        };
+
+        elements.smsList.innerHTML = state.smsMessages.map((item) => `
+          <div class="sms-item">
+            <div class="sms-head">
+              <span class="sms-to">${escapeHtml(item.to)}</span>
+              <span class="sms-ts">${escapeHtml(item.time)} ✓</span>
+            </div>
+            <div class="sms-tp">${icons[item.type] || '📨'} ${escapeHtml(item.type)}</div>
+            <div class="sms-body">${escapeHtml(item.message)}</div>
+          </div>
+        `).join('');
+      }
+
+      function renderSmsCounters() {
+        elements.cntTot.textContent = state.smsCounters.total;
+        elements.cntSms.textContent = state.smsCounters.sms;
+        elements.cntPsh.textContent = state.smsCounters.push;
+        elements.cntOth.textContent = state.smsCounters.other;
+      }
+
+      function sendSMS() {
+        const to = elements.smsTo.value.trim();
+        const type = elements.smsType.value;
+        const message = elements.smsMsg.value.trim();
+
+        if (!to || !message) {
+          alert('Completa el número y mensaje.');
+          return;
+        }
+
+        const now = new Date();
+        const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        state.smsMessages.unshift({
+          to,
+          type,
+          message: message.length > 70 ? `${message.slice(0, 70)}...` : message,
+          time
+        });
+
+        if (state.smsMessages.length > 4) {
+          state.smsMessages.pop();
+        }
+
+        state.smsCounters.total += 1;
+
+        if (type === 'SMS') {
+          state.smsCounters.sms += 1;
+        } else if (type === 'Push') {
+          state.smsCounters.push += 1;
+        } else {
+          state.smsCounters.other += 1;
+        }
+
+        renderSmsCounters();
+        renderSmsList();
+        elements.smsMsg.value = '';
+      }
+
+      function renderPlaylist() {
+        elements.plList.innerHTML = playlist.map((video, index) => {
+          const isActive = index === state.currentVideo;
+
+          return `
+            <div class="pl-item${isActive ? ' active' : ''}" data-index="${index}">
+              <span class="pl-n">${String(index + 1).padStart(2, '0')}</span>
+              <span class="pl-t">${escapeHtml(video.title)}</span>
+              ${isActive ? '<span class="pl-live">▶</span>' : ''}
+            </div>
+          `;
+        }).join('');
+      }
+
+      function buildVideoUrl(videoId, options = {}) {
+        const params = new URLSearchParams({
+          rel: '0',
+          modestbranding: '1'
+        });
+
+        if (options.autoplay) params.set('autoplay', '1');
+        if (options.mute) params.set('mute', '1');
+
+        return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+      }
+
+      function setVideo(index, autoplay = false) {
+        if (index < 0 || index >= playlist.length) return;
+
+        state.currentVideo = index;
+        elements.ytSel.selectedIndex = index;
+        elements.ytFrame.src = buildVideoUrl(playlist[index].id, {
+          autoplay,
+          mute: state.currentMute
+        });
+
+        renderPlaylist();
+      }
+
+      function handleVideoAction(action) {
+        const currentId = playlist[state.currentVideo].id;
+
+        switch (action) {
+          case 'play':
+            elements.ytFrame.src = buildVideoUrl(currentId, {
+              autoplay: true,
+              mute: state.currentMute
+            });
+            break;
+
+          case 'pause':
+            elements.ytFrame.src = buildVideoUrl(currentId, {
+              autoplay: false,
+              mute: state.currentMute
+            });
+            break;
+
+          case 'reload':
+            elements.ytFrame.src = buildVideoUrl(currentId, {
+              autoplay: false,
+              mute: state.currentMute
+            });
+            break;
+
+          case 'mute':
+            state.currentMute = true;
+            elements.ytFrame.src = buildVideoUrl(currentId, {
+              autoplay: true,
+              mute: true
+            });
+            break;
+
+          case 'unmute':
+            state.currentMute = false;
+            elements.ytFrame.src = buildVideoUrl(currentId, {
+              autoplay: true,
+              mute: false
+            });
+            break;
+        }
+      }
+
+      function bindCarouselEvents() {
+        elements.arrL.addEventListener('click', () => moveSlide(-1));
+        elements.arrR.addEventListener('click', () => moveSlide(1));
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowLeft') moveSlide(-1);
+          if (event.key === 'ArrowRight') moveSlide(1);
+        });
+
+        let touchStartX = 0;
+
+        elements.trackOuter.addEventListener('touchstart', (event) => {
+          touchStartX = event.touches[0].clientX;
+        }, { passive: true });
+
+        elements.trackOuter.addEventListener('touchend', (event) => {
+          const diffX = event.changedTouches[0].clientX - touchStartX;
+
+          if (Math.abs(diffX) > 50) {
+            moveSlide(diffX < 0 ? 1 : -1);
+          }
+        }, { passive: true });
+      }
+
+      function bindEvents() {
+        elements.btnGeo.addEventListener('click', getGeo);
+        elements.btnSocial.addEventListener('click', fetchSocial);
+        elements.btnEco.addEventListener('click', fetchEco);
+        elements.btnDb.addEventListener('click', sendDb);
+        elements.btnClearLog.addEventListener('click', clearLog);
+        elements.btnSms.addEventListener('click', sendSMS);
+
+        elements.socialQ.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') fetchSocial();
+        });
+
+        elements.ytSel.addEventListener('change', () => {
+          setVideo(elements.ytSel.selectedIndex);
+        });
+
+        document.querySelectorAll('.vctr').forEach((button) => {
+          button.addEventListener('click', () => {
+            handleVideoAction(button.dataset.action);
+          });
+        });
+
+        elements.plList.addEventListener('click', (event) => {
+          const item = event.target.closest('.pl-item');
+          if (!item) return;
+
+          const index = Number(item.dataset.index);
+          setVideo(index, true);
+        });
+      }
+
+      function init() {
+        buildDots();
+        bindCarouselEvents();
+        bindEvents();
+        goToSlide(0);
+        renderPlaylist();
+        renderSmsCounters();
+        checkGeoPermission();
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

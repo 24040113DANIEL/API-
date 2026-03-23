@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Mashup — Unidad 3</title>
+    <link rel="stylesheet" href="styles/style.css"/>
+
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">API<span>.</span>MASHUP</div>
+    <div class="header-badge">UNIDAD · 3</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">SABER HACER · PROGRAMACIÓN WEB</div>
+    <h1>Dashboard<br><span>API</span> Mashup</h1>
+    <div class="hero-sub">CONSUMO DE 6 CATEGORÍAS DE APIs</div>
+    <p class="hero-desc">
+      Un <b>Mashup</b> es una aplicación web que combina datos y funciones
+      de múltiples fuentes externas en una sola interfaz. Este proyecto integra
+      <b>6 tipos distintos de APIs</b> reales funcionando al mismo tiempo
+      dentro de un solo dashboard interactivo.
+    </p>
+
+    <div class="cta-wrap">
+      <a class="cta-btn" href="dashboard.html">
+        ¿QUIERES VER CÓMO FUNCIONA?
+        <div class="cta-arrow">→</div>
+      </a>
+      <div class="cta-hint">ABRE EL DASHBOARD INTERACTIVO</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- API CARDS -->
+  <section class="section">
+    <div class="section-label">COMPONENTES DEL PROYECTO</div>
+    <div class="section-title">Las 6 APIs integradas</div>
+
+    <div class="apis-grid">
+
+      <div class="api-card">
+        <div class="api-card-top">
+          <div class="api-icon">📍</div>
+          <div>
+            <div class="api-card-num">API · 01</div>
+            <div class="api-card-name">Geolocalización</div>
+          </div>
+        </div>
+        <div class="api-card-desc">
+          Obtiene las coordenadas GPS reales del dispositivo usando la API nativa del navegador. Muestra latitud, longitud y precisión en metros sobre un mapa SVG interactivo.
+        </div>
+        <span class="api-card-tag">navigator.geolocation</span>
+      </div>
+
+      <div class="api-card">
+        <div class="api-card-top">
+          <div class="api-icon">🌐</div>
+          <div>
+            <div class="api-card-num">API · 02</div>
+            <div class="api-card-name">Redes Sociales</div>
+          </div>
+        </div>
+        <div class="api-card-desc">
+          Simula la extracción de perfiles públicos conectando con REST Countries API. Muestra información de países como capital, idioma, moneda y población en formato de feed social.
+        </div>
+        <span class="api-card-tag">restcountries.com/v3.1</span>
+      </div>
+
+      <div class="api-card">
+        <div class="api-card-top">
+          <div class="api-icon">🛒</div>
+          <div>
+            <div class="api-card-num">API · 03</div>
+            <div class="api-card-name">E-Commerce</div>
+          </div>
+        </div>
+        <div class="api-card-desc">
+          Consulta un catálogo real de productos con imagen, precio en USD y calificación de usuarios. Filtra por categorías como electrónica, joyería y ropa usando FakeStore API.
+        </div>
+        <span class="api-card-tag">fakestoreapi.com</span>
+      </div>
+
+      <div class="api-card">
+        <div class="api-card-top">
+          <div class="api-icon">🗄️</div>
+          <div>
+            <div class="api-card-num">API · 04</div>
+            <div class="api-card-name">Base de Datos</div>
+          </div>
+        </div>
+        <div class="api-card-desc">
+          Envía un formulario de registro a la nube mediante una petición HTTP POST real. El servidor responde con un ID único asignado al nuevo usuario, visible en la terminal de logs.
+        </div>
+        <span class="api-card-tag">jsonplaceholder.typicode.com</span>
+      </div>
+
+      <div class="api-card">
+        <div class="api-card-top">
+          <div class="api-icon">📱</div>
+          <div>
+            <div class="api-card-num">API · 05</div>
+            <div class="api-card-name">Protocolo SMS</div>
+          </div>
+        </div>
+        <div class="api-card-desc">
+          Simula el flujo completo de envío de notificaciones usando el protocolo de Twilio. Soporta SMS, Push notifications, WhatsApp y Email con historial de mensajes en tiempo real.
+        </div>
+        <span class="api-card-tag">Twilio API (simulación)</span>
+      </div>
+
+      <div class="api-card">
+        <div class="api-card-top">
+          <div class="api-icon">▶️</div>
+          <div>
+            <div class="api-card-num">API · 06</div>
+            <div class="api-card-name">Streaming</div>
+          </div>
+        </div>
+        <div class="api-card-desc">
+          Incrusta y controla un reproductor de YouTube usando la IFrame Player API. Permite reproducir, pausar, detener y silenciar videos en tiempo real mediante comandos JavaScript.
+        </div>
+        <span class="api-card-tag">YouTube IFrame API</span>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" style="padding-top:64px">
+    <div class="section-label">FUNCIONAMIENTO</div>
+    <div class="section-title">¿Cómo funciona un Mashup?</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-title">SOLICITUD</div>
+        <div class="step-desc">El navegador hace una petición HTTP a una API externa usando <code style="color:#cc88ff">fetch()</code></div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-title">RESPUESTA</div>
+        <div class="step-desc">La API devuelve datos en formato <code style="color:#cc88ff">JSON</code> con la información solicitada</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-title">PROCESAMIENTO</div>
+        <div class="step-desc">JavaScript procesa y transforma los datos para mostrarlos en la interfaz</div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-title">VISUALIZACIÓN</div>
+        <div class="step-desc">El HTML se actualiza dinámicamente sin recargar la página completa</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <div class="footer-cta">
+    <p>¿LISTO PARA VERLO EN ACCIÓN?</p>
+    <a class="cta-btn" href="dashboard.html">
+      VER DASHBOARD COMPLETO
+      <div class="cta-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">Programación Web · Unidad 3 · Saber Hacer</div>
+    <div class="footer-right">API · MASHUP · DASHBOARD</div>
+  </footer>
+
+</div>
+</body>
+</html>
